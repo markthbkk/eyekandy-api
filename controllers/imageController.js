@@ -25,7 +25,7 @@ exports.searchPhotos = async (req, res) => {
 exports.searchUserPhotos = async (req, res) => {
   const { page, per_page } = req.query;
   const username = req.params.id;
-  console.log(username);
+  console.log(username, page, per_page);
   console.log(req.query);
   try {
     const response = await unsplash.users.getPhotos({
