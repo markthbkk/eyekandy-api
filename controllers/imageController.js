@@ -13,7 +13,6 @@ exports.searchPhotos = async (req, res) => {
       query,
       page,
       perPage: per_page,
-      orientation: portrait,
     });
     //   console.log(response.response);
     console.log(response.response.total_pages);
@@ -24,9 +23,8 @@ exports.searchPhotos = async (req, res) => {
 };
 
 exports.searchUserPhotos = async (req, res) => {
-  
   const { page, per_page } = req.query;
-  const username = req.params.id
+  const username = req.params.id;
   console.log(username);
   console.log(req.query);
   try {
