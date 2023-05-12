@@ -34,8 +34,8 @@ exports.searchUserPhotos = async (req, res) => {
       perPage: per_page,
     });
     //   console.log(response.response);
-    console.log(response.response.total_pages);
-    res.send(response.response);
+    console.log(response.response.results);
+    res.send(response.response.results);
   } catch (error) {
     res.status(500).send(error);
   }
