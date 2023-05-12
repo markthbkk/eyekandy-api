@@ -13,6 +13,28 @@ exports.searchPhotos = async (req, res) => {
       query,
       page,
       perPage: per_page,
+      orientation: portrait,
+    });
+    //   console.log(response.response);
+    console.log(response.response.total_pages);
+    res.send(response.response);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+};
+
+exports.searchUserPhotos = async (req, res) => {
+  
+  const { page, per_page } = req.query;
+  const username = req.params.id
+  console.log(username);
+  console.log(req.query);
+  try {
+    const response = await unsplash.users.getPhotos({
+      username,
+      page,
+      perPage: per_page,
+      orientation: "portrait",
     });
     //   console.log(response.response);
     console.log(response.response.total_pages);
@@ -114,19 +136,17 @@ exports.updateImage = async (req, res) => {
       message: err,
     });
   }
-
 };
 
 exports.searchImages = async (req, res) => {
-
   const { owner, skip, limit, keyword } = req.body;
 
   console.log(owner, skip, limit, keyword);
 
   let Images;
 
-  let data = {}
-  let count
+  let data = {};
+  let count;
 
   try {
     if (keyword) {
@@ -134,23 +154,19 @@ exports.searchImages = async (req, res) => {
         .find({ owner: owner, tags: keyword })
         .skip(skip)
         .limit(limit);
-      
+
       count = await image.countDocuments({ owner: owner, tags: keyword });
-      
     } else {
-      
       Images = await image.find({ owner: owner }).skip(skip).limit(limit);
       count = await image.countDocuments({ owner: owner });
     }
 
-   
-    
-    console.log(count)
+    console.log(count);
 
-    data.count = count
-    data.images = Images
+    data.count = count;
+    data.images = Images;
 
-// console.log(data)
+    // console.log(data)
 
     res.status(200).send(data);
   } catch (err) {

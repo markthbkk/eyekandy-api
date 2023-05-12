@@ -4,6 +4,7 @@ const imageController = require("../controllers/imageController");
 const router = express.Router();
 
 router.route("/api/search/photos").get(imageController.searchPhotos);
+router.route("/api/users/:id/photos").get(imageController.searchUserPhotos);
 
 router.route("/api/image").get(imageController.getAllImages);
 router.route("/api/image").post(imageController.createImage);
