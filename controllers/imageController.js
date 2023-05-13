@@ -35,6 +35,8 @@ exports.searchUserPhotos = async (req, res) => {
     });
     //   console.log(response.response);
     console.log(response.response);
+    res.set("Access-Control-Expose-Headers", "X-Total-Count");
+    res.set("X-Total-Count", per_page);
     res.send(response.response);
   } catch (error) {
     res.status(500).send(error);
