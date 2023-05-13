@@ -38,6 +38,8 @@ exports.searchUserPhotos = async (req, res) => {
     res.set("Access-Control-Expose-Headers", "X-Total-Count,X-Total-Pages");
     res.set("X-Total-Count", per_page);
     res.set("X-Total-Pages", 1);
+    response.response.total_pages = 1
+    response.response.total = per_page;
     res.send(response.response);
   } catch (error) {
     res.status(500).send(error);
