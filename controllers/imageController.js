@@ -35,8 +35,9 @@ exports.searchUserPhotos = async (req, res) => {
     });
     //   console.log(response.response);
     console.log(response.response);
-    res.set("Access-Control-Expose-Headers", "X-Total-Count,X-Total-Pages");
+    res.set("Access-Control-Expose-Headers", "X-Total-Count,X-Total-Pages,X-Total");
     res.set("X-Total-Count", per_page);
+    res.set("X-Total", per_page);
     res.set("X-Total-Pages", 1);
     response.response.total_pages = 1
     response.response.total = per_page;
