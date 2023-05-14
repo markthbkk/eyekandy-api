@@ -120,7 +120,7 @@ exports.updateImage = async (req, res) => {
     if (operation === "addtag") {
       Image = await image.findOneAndUpdate(
         { id: req.params.id },
-        { $push: { tags: tag } },
+        { $push: { tags: tag.toLowerCase() } },
         { new: true }
       );
     }
@@ -154,11 +154,11 @@ exports.searchImages = async (req, res) => {
   try {
     if (keyword) {
       Images = await image
-        .find({ owner: owner, tags: keyword })
+        .find({ owner: owner, tags: keyword.toLowerCase() })
         .skip(skip)
         .limit(limit);
 
-      count = await image.countDocuments({ owner: owner, tags: keyword });
+      count = await image.countDocuments({ owner: owner, tags: keyword.toLowerCase() });
     } else {
       Images = await image.find({ owner: owner }).skip(skip).limit(limit);
       count = await image.countDocuments({ owner: owner });
