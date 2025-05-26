@@ -1,6 +1,7 @@
 const image = require("../models/imageModel");
+import { createApi } from "unsplash-js";
 
-const unsplash = require("unsplash-js").createApi({
+const unsplash = createApi({
   accessKey: "FVwXk0wuiRsL_OLhSNRIDzdGZfHhHFmGoQr0VS9rUZg",
   fetch: require("node-fetch"),
 });
