@@ -1,16 +1,16 @@
-const app = require("./app");
-const dotenv = require("dotenv");
-const mongoose = require("mongoose");
+import app from "./app.mjs";
+import dotenv from "dotenv";
+import mongoose from "mongoose";
 
 
 dotenv.config({ path: "./config.env" });
 const DB = process.env.DATABASE;
 
-console.log(`Database: ${DB}`);
+
 
 mongoose
   .connect(DB, {
-    useNewUrlParser: true,
+    // useNewUrlParser: true,
   })
   .then(() => console.log('DB connection successful!'));
 

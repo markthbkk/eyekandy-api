@@ -1,12 +1,13 @@
-const image = require("../models/imageModel");
+import image from "../models/imageModel.js";
 import { createApi } from "unsplash-js";
+import fetch from "node-fetch";
 
 const unsplash = createApi({
   accessKey: "FVwXk0wuiRsL_OLhSNRIDzdGZfHhHFmGoQr0VS9rUZg",
-  fetch: require("node-fetch"),
+  fetch: fetch,
 });
 
-exports.searchPhotos = async (req, res) => {
+export const searchPhotos = async (req, res) => {
   const { query, page, per_page } = req.query;
   console.log(req.query);
   try {
@@ -23,7 +24,7 @@ exports.searchPhotos = async (req, res) => {
   }
 };
 
-exports.searchUserPhotos = async (req, res) => {
+export const searchUserPhotos = async (req, res) => {
   const { page, per_page } = req.query;
   const username = req.params.id;
   console.log(username, page, per_page);
@@ -48,7 +49,7 @@ exports.searchUserPhotos = async (req, res) => {
   }
 };
 
-exports.getAllImages = async (req, res) => {
+export const getAllImages = async (req, res) => {
   console.log("Getting Requested Images");
 
   try {
@@ -63,7 +64,7 @@ exports.getAllImages = async (req, res) => {
   }
 };
 
-exports.getSingleImage = async (req, res) => {
+export const getSingleImage = async (req, res) => {
   console.log("IMAGE-ID");
   console.log(req.params.id);
 
@@ -79,7 +80,7 @@ exports.getSingleImage = async (req, res) => {
   }
 };
 
-exports.createImage = async (req, res) => {
+export const createImage = async (req, res) => {
   try {
     console.log(req.body);
     const newImage = await image.create(req.body);
@@ -93,7 +94,7 @@ exports.createImage = async (req, res) => {
   }
 };
 
-exports.deleteImage = async (req, res) => {
+export const deleteImage = async (req, res) => {
   console.log(req.params.id);
 
   try {
@@ -111,7 +112,7 @@ exports.deleteImage = async (req, res) => {
   }
 };
 
-exports.updateImage = async (req, res) => {
+export const updateImage = async (req, res) => {
   console.log(req.params.id);
   const { operation, tags: tag } = req.body;
   console.log(operation, tag);
@@ -142,7 +143,7 @@ exports.updateImage = async (req, res) => {
   }
 };
 
-exports.searchImages = async (req, res) => {
+export const searchImages = async (req, res) => {
   const { owner, skip, limit, keyword } = req.body;
 
   console.log(owner, skip, limit, keyword);
@@ -159,7 +160,10 @@ exports.searchImages = async (req, res) => {
         .skip(skip)
         .limit(limit);
 
-      count = await image.countDocuments({ owner: owner, tags: keyword.toLowerCase() });
+      count = await image.countDocuments({
+        owner: owner,
+        tags: keyword.toLowerCase(),
+      });
     } else {
       Images = await image.find({ owner: owner }).skip(skip).limit(limit);
       count = await image.countDocuments({ owner: owner });
